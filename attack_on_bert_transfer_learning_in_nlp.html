@@ -171,7 +171,7 @@
                     <ul class="page-header__meta">
                         <li class="date">2019-07-10 (Wed)</li>
                         <li class="page-view">
-                            22,483 views
+                            98,755 views
                         </li>
                     </ul>
 
@@ -489,7 +489,7 @@ pip install transformers tqdm boto3 requests regex -q
 <div class="output">
 <div class="output_area">
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>PyTorch 版本： 1.3.1
+<pre>PyTorch 版本： 1.4.0
 </pre>
 </div>
 </div>
@@ -577,16 +577,16 @@ pip install transformers tqdm boto3 requests regex -q
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>token               index          
 -------------------------
-##int                9824
-孤                    2109
-##肆                 18544
-##既                 16245
-min                  9573
-##琮                 17486
-coco                 8770
-恚                    2611
-privacy              8677
-##炯                 17210
+##荘                 18834
+##尉                 15259
+詬                    6278
+32gb                11155
+荨                    5787
+##狙                 17376
+兹                    1074
+##诈                 19457
+蠣                    6112
+gp                  13228
 </pre>
 </div>
 </div>
@@ -727,8 +727,8 @@ privacy              8677
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>輸入 tokens ： ['[CLS]', '等', '到', '潮', '水', '[MASK]', '了', '，', '就', '知'] ...
 --------------------------------------------------
-Top 1 (67%)：['[CLS]', '等', '到', '潮', '水', '來', '了', '，', '就', '知'] ...
-Top 2 (25%)：['[CLS]', '等', '到', '潮', '水', '濕', '了', '，', '就', '知'] ...
+Top 1 (82%)：['[CLS]', '等', '到', '潮', '水', '來', '了', '，', '就', '知'] ...
+Top 2 (11%)：['[CLS]', '等', '到', '潮', '水', '濕', '了', '，', '就', '知'] ...
 Top 3 ( 2%)：['[CLS]', '等', '到', '潮', '水', '過', '了', '，', '就', '知'] ...
 </pre>
 </div>
@@ -802,8 +802,8 @@ Top 3 ( 2%)：['[CLS]', '等', '到', '潮', '水', '過', '了', '，', '就', 
   <span class="n">sys</span><span class="o">.</span><span class="n">path</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">'bertviz_repo'</span><span class="p">]</span>
 
 <span class="c1"># import packages</span>
-<span class="kn">from</span> <span class="nn">bertviz.pytorch_transformers_attn</span> <span class="kn">import</span> <span class="n">BertModel</span><span class="p">,</span> <span class="n">BertTokenizer</span>
-<span class="kn">from</span> <span class="nn">bertviz.head_view</span> <span class="kn">import</span> <span class="n">show</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertTokenizer</span><span class="p">,</span> <span class="n">BertModel</span>
+<span class="kn">from</span> <span class="nn">bertviz</span> <span class="kn">import</span> <span class="n">head_view</span>
 
 <span class="c1"># 在 jupyter notebook 裡頭顯示 visualzation 的 helper</span>
 <span class="k">def</span> <span class="nf">call_html</span><span class="p">():</span>
@@ -831,17 +831,25 @@ Top 3 ( 2%)：['[CLS]', '等', '到', '潮', '水', '過', '了', '，', '就', 
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Setup 以後就能非常輕鬆地將 BERT 內部的注意力機制視覺化出來：</p>
 <div class="highlight"><pre><span></span><span class="c1"># 記得我們是使用中文 BERT</span>
-<span class="n">model_type</span> <span class="o">=</span> <span class="s1">'bert'</span>
-<span class="n">bert_version</span> <span class="o">=</span> <span class="s1">'bert-base-chinese'</span>
-
-<span class="n">bertviz_model</span> <span class="o">=</span> <span class="n">BertModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">bert_version</span><span class="p">)</span>
-<span class="n">bertviz_tokenizer</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">bert_version</span><span class="p">)</span>
+<span class="n">model_version</span> <span class="o">=</span> <span class="s1">'bert-base-chinese'</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">BertModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_version</span><span class="p">,</span> <span class="n">output_attentions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_version</span><span class="p">)</span>
 
 <span class="c1"># 情境 1 的句子</span>
 <span class="n">sentence_a</span> <span class="o">=</span> <span class="s2">"胖虎叫大雄去買漫畫，"</span>
 <span class="n">sentence_b</span> <span class="o">=</span> <span class="s2">"回來慢了就打他。"</span>
+
+<span class="c1"># 得到 tokens 後丟入 BERT 取得 attention</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="n">sentence_a</span><span class="p">,</span> <span class="n">sentence_b</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">'pt'</span><span class="p">,</span> <span class="n">add_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">token_type_ids</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">'token_type_ids'</span><span class="p">]</span>
+<span class="n">input_ids</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">'input_ids'</span><span class="p">]</span>
+<span class="n">attention</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">input_id_list</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c1"># Batch index 0</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">input_id_list</span><span class="p">)</span>
 <span class="n">call_html</span><span class="p">()</span>
-<span class="n">show</span><span class="p">(</span><span class="n">bertviz_model</span><span class="p">,</span> <span class="n">model_type</span><span class="p">,</span> <span class="n">bertviz_tokenizer</span><span class="p">,</span> <span class="n">sentence_a</span><span class="p">,</span> <span class="n">sentence_b</span><span class="p">)</span>
+
+<span class="c1"># 交給 BertViz 視覺化</span>
+<span class="n">head_view</span><span class="p">(</span><span class="n">attention</span><span class="p">,</span> <span class="n">tokens</span><span class="p">)</span>
 
 <span class="c1"># 注意：執行這段程式碼以後只會顯示下圖左側的結果。</span>
 <span class="c1"># 為了方便你比較，我把情境 2 的結果也同時附上</span>
@@ -985,8 +993,6 @@ Top 3 ( 2%)：['[CLS]', '等', '到', '潮', '水', '過', '了', '，', '就', 
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-</div>
-<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="inner_cell">
 <div class="input_area">
@@ -1057,8 +1063,6 @@ Top 3 ( 2%)：['[CLS]', '等', '到', '潮', '水', '過', '了', '，', '就', 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <img src="https://leemeng.tw/images/bert/df_train.jpg" style="mix-blend-mode: initial;"/>
@@ -1114,8 +1118,6 @@ Name: label, dtype: float64</pre>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1690,29 +1692,54 @@ classifier      Linear(in_features=768, out_features=3, bias=True)
 <div class="output">
 <div class="output_area">
 <div class="output_text output_subarea output_execute_result">
-<pre>{
+<pre>BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
   "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
   "directionality": "bidi",
+  "do_sample": false,
+  "eos_token_ids": 0,
   "finetuning_task": null,
   "hidden_act": "gelu",
   "hidden_dropout_prob": 0.1,
   "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
   "initializer_range": 0.02,
   "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
   "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
   "max_position_embeddings": 512,
+  "model_type": "bert",
   "num_attention_heads": 12,
+  "num_beams": 1,
   "num_hidden_layers": 12,
   "num_labels": 3,
+  "num_return_sequences": 1,
   "output_attentions": false,
   "output_hidden_states": false,
   "output_past": true,
+  "pad_token_id": 0,
   "pooler_fc_size": 768,
   "pooler_num_attention_heads": 12,
   "pooler_num_fc_layers": 3,
   "pooler_size_per_head": 128,
   "pooler_type": "first_token_transform",
   "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
   "torchscript": false,
   "type_vocab_size": 2,
   "use_bfloat16": false,
@@ -1820,7 +1847,7 @@ classifier      Linear(in_features=768, out_features=3, bias=True)
 <div class="output_area">
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>device: cuda:0
-classification acc: 0.6789612344749718
+classification acc: 0.03387278885961611
 </pre>
 </div>
 </div>
@@ -1940,14 +1967,14 @@ classification acc: 0.6789612344749718
 <div class="output">
 <div class="output_area">
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[epoch 1] loss: 26.525, acc: 0.803
-[epoch 2] loss: 18.461, acc: 0.880
-[epoch 3] loss: 13.736, acc: 0.913
-[epoch 4] loss: 11.585, acc: 0.894
-[epoch 5] loss: 9.245, acc: 0.955
-[epoch 6] loss: 5.995, acc: 0.975
-CPU times: user 4min 51s, sys: 3min 3s, total: 7min 54s
-Wall time: 7min 56s
+<pre>[epoch 1] loss: 32.120, acc: 0.803
+[epoch 2] loss: 19.275, acc: 0.845
+[epoch 3] loss: 14.135, acc: 0.903
+[epoch 4] loss: 10.738, acc: 0.868
+[epoch 5] loss: 8.326, acc: 0.905
+[epoch 6] loss: 8.947, acc: 0.930
+CPU times: user 1min 41s, sys: 46 s, total: 2min 27s
+Wall time: 2min 27s
 </pre>
 </div>
 </div>
@@ -2004,8 +2031,8 @@ Wall time: 7min 56s
 <div class="output">
 <div class="output_area">
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 7min 24s, sys: 4min 39s, total: 12min 4s
-Wall time: 12min 4s
+<pre>CPU times: user 2min 11s, sys: 49.5 s, total: 3min
+Wall time: 3min 1s
 </pre>
 </div>
 </div>
@@ -2038,8 +2065,6 @@ Wall time: 12min 4s
 </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -2094,15 +2119,24 @@ Wall time: 12min 4s
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="highlight"><pre><span></span><span class="c1"># 觀察訓練過後的 model 在處理假新聞分類任務時關注的位置</span>
 <span class="c1"># 去掉 `state_dict` 即可觀看原始 BERT 結果</span>
-<span class="n">bert_version</span> <span class="o">=</span> <span class="s1">'bert-base-chinese'</span>
-<span class="n">bertviz_model</span> <span class="o">=</span> <span class="n">BertModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">bert_version</span><span class="p">,</span> 
-                                          <span class="n">state_dict</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">bert</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+<span class="n">model_version</span> <span class="o">=</span> <span class="s1">'bert-base-chinese'</span>
+<span class="n">finetuned_model</span>  <span class="o">=</span> <span class="n">BertModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_version</span><span class="p">,</span> 
+                                  <span class="n">output_attentions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">state_dict</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
 
+<span class="c1"># 兩個句子</span>
 <span class="n">sentence_a</span> <span class="o">=</span> <span class="s2">"烟王褚时健去世"</span>
 <span class="n">sentence_b</span> <span class="o">=</span> <span class="s2">"辟谣：一代烟王褚时健安好！"</span>
 
+<span class="c1"># 得到 tokens 後丟入 BERT 取得 attention</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="n">sentence_a</span><span class="p">,</span> <span class="n">sentence_b</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">'pt'</span><span class="p">,</span> <span class="n">add_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">token_type_ids</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">'token_type_ids'</span><span class="p">]</span>
+<span class="n">input_ids</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s1">'input_ids'</span><span class="p">]</span>
+<span class="n">attention</span> <span class="o">=</span> <span class="n">finetuned_model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">input_id_list</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c1"># Batch index 0</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">input_id_list</span><span class="p">)</span>
 <span class="n">call_html</span><span class="p">()</span>
-<span class="n">show</span><span class="p">(</span><span class="n">bertviz_model</span><span class="p">,</span> <span class="n">model_type</span><span class="p">,</span> <span class="n">bertviz_tokenizer</span><span class="p">,</span> <span class="n">sentence_a</span><span class="p">,</span> <span class="n">sentence_b</span><span class="p">)</span>
+<span class="n">head_view</span><span class="p">(</span><span class="n">attention</span><span class="p">,</span> <span class="n">tokens</span><span class="p">)</span>
+
 <span class="c1"># 這段程式碼會顯示下圖中右邊的結果</span>
 </pre></div>
 </div>
@@ -2126,7 +2160,7 @@ Wall time: 12min 4s
 <li>安好</li>
 </ul>
 <p>在 fine tune 一陣子之後， 這層 Encoder block 學會關注兩句之間「衝突」的位置，並將這些資訊更新到 <code>[CLS]</code> 裡頭。有了這些資訊，之後的 Linear Classifier 可以將其轉換成更好的分類預測。考慮到我們只給 BERT 看不到 1 % 的數據，這樣的結果不差。如果有時間 fine tune 整個訓練集，我們能得到更好的成果。</p>
-<p>好啦，到此為止你應該已經能直觀地理解 BERT 並開始 fine tuning 自己的下游任務了。如果你要做的是如 <a href="https://github.com/huggingface/pytorch-pretrained-BERT#squad">SQuAD 問答</a>等常見的任務，甚至可以用 <a href="https://github.com/huggingface/pytorch-transformers">pytorch-transformers</a> 準備好的 Python 腳本一鍵完成訓練與推論：</p>
+<p>好啦，到此為止你應該已經能直觀地理解 BERT 並開始 fine tuning 自己的下游任務了。如果你要做的是如 <a href="https://github.com/huggingface/pytorch-pretrained-BERT#squad">SQuAD 問答</a>等常見的任務，甚至可以用 <a href="https://github.com/huggingface/transformers">transformers</a> 準備好的 Python 腳本一鍵完成訓練與推論：</p>
 <div class="highlight"><pre><span></span><span class="c1"># 腳本模式的好處是可以透過改變參數快速進行各種實驗。</span>
 <span class="c1"># 壞處是黑盒子效應，不過對閱讀完本文的你應該不是個問題。</span>
 <span class="c1"># 選擇適合自己的方式 fine-tuning BERT 吧！</span>
@@ -2263,6 +2297,10 @@ python run_squad.py <span class="se">\</span>
 
 
 
+
+
+
+
                 <!-- end Tags -->
 
 
@@ -2345,7 +2383,33 @@ var disqus_title = '進擊的 BERT：NLP 界的巨人之力與遷移學習';
 
 <!-- footer
 ================================================== -->
-<footer>
+<footer style="background:#0a0809">
+    <div class="row">
+        <div class="col-full">
+
+            <div class="footer-logo">
+                <a class="footer-site-logo" href="#0"><img src="https://leemeng.tw/theme/images/logo.png" alt="Homepage"></a>
+            </div>
+
+            <ul class="footer-social">
+<li><a href="https://github.com/leemengtaiwan" target="_blank">
+    <i class="im im-github" aria-hidden="true"></i>
+    <span>Github</span>
+</a></li>
+<li><a href="https://www.facebook.com/LeeMengTaiwan" target="_blank">
+    <i class="im im-facebook" aria-hidden="true"></i>
+    <span>Facebook</span>
+</a></li>
+<li><a href="https://www.instagram.com/leemengtaiwan/" target="_blank">
+    <i class="im im-instagram" aria-hidden="true"></i>
+    <span>Instagram</span>
+</a></li>
+<li><a href="https://www.linkedin.com/in/leemeng1990/" target="_blank">
+    <i class="im im-linkedin" aria-hidden="true"></i>
+    <span>LinkedIn</span>
+</a></li>            </ul>
+        </div>
+    </div>
     <div class="row footer-bottom">
         <div class="col-twelve">
             <div class="go-top">
@@ -2360,7 +2424,7 @@ var disqus_title = '進擊的 BERT：NLP 界的巨人之力與遷移學習';
     ================================================== -->
     <script src="https://leemeng.tw/theme/js/jquery-3.2.1.min.js"></script>
     <script src="https://leemeng.tw/theme/js/plugins.js"></script>
-    <script src="https://leemeng.tw/theme/js/main.js"></script>
+    <script src="https://leemeng.tw/theme/js/main_raw.js"></script>
     <script type='text/javascript' src='https://leemeng.tw/theme/js/scroll-detect.js'></script>
 
     <!--https://instant.page/-->
@@ -2400,6 +2464,25 @@ var disqus_title = '進擊的 BERT：NLP 界的巨人之力與遷移學習';
       showMailingPopUp();
     });
   });
+</script><!--https://darkmodejs.learn.uno/-->
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.4.0/lib/darkmode-js.min.js"></script>
+<script>
+var options = {
+  bottom: '32px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.2s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
 </script>
 <!--reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_overlay-->
 <script>
@@ -2433,25 +2516,6 @@ function toggleLeftNavImage(elementId) {
     }
 }
 
-</script><!--https://darkmodejs.learn.uno/-->
-<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.4.0/lib/darkmode-js.min.js"></script>
-<script>
-var options = {
-  bottom: '32px', // default: '32px'
-  right: 'unset', // default: '32px'
-  left: '32px', // default: 'unset'
-  time: '0.2s', // default: '0.3s'
-  mixColor: '#fff', // default: '#fff'
-  backgroundColor: '#fff',  // default: '#fff'
-  buttonColorDark: '#100f2c',  // default: '#100f2c'
-  buttonColorLight: '#fff', // default: '#fff'
-  saveInCookies: true, // default: true,
-  label: '🌓', // default: ''
-  autoMatchOsTheme: true // default: true
-}
-
-const darkmode = new Darkmode(options);
-darkmode.showWidget();
 </script>
 
 

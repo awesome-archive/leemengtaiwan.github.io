@@ -171,7 +171,7 @@
                     <ul class="page-header__meta">
                         <li class="date">2019-10-13 (Sun)</li>
                         <li class="page-view">
-                            11,043 views
+                            26,286 views
                         </li>
                     </ul>
 
@@ -275,7 +275,7 @@
 <span class="p">])</span>
 
 <span class="c1"># 選擇損失函數、optimizer</span>
-<span class="n">mondel</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">'adam'</span><span class="p">,</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">'adam'</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s1">'sparse_categorical_crossentropy'</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">'accuracy'</span><span class="p">])</span>
 <span class="c1"># 訓練模型</span>
@@ -326,7 +326,7 @@
                     您的瀏覽器不支援影片標籤，請留言通知我：S
                 </video>
 <center>
-                        一個簡單 nn 嘗試解決二元分類的過程
+                        一個簡單 NN 嘗試解決二元分類的過程
                         <br/>
 <br/>
 </center>
@@ -685,11 +685,11 @@ f(x) &amp; = \begin{bmatrix} w_{11} &amp; w_{12}  \end{bmatrix} \begin{bmatrix} 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <video autoplay="" loop="" muted="" playsinline="" poster="https://leemeng.tw/20190921_manim_binary_classification.ipynb">
-<source src="https://leemeng.tw/images/manim/applymatrixassinglelineartransformation.mp4" type="video/mp4"/>
+<source src="https://leemeng.tw/images/manim/applymatrixassingleLineartransformation.mp4" type="video/mp4"/>
                     您的瀏覽器不支援影片標籤，請留言通知我：S
                 </video>
 <center>
-                        利用 1-layer nn 將二維輸入轉換成一維輸出
+                        利用 1-Layer NN 將二維輸入轉換成一維輸出
                         <br/>
 <br/>
 </center>
@@ -740,11 +740,11 @@ f(x) &amp; = \begin{bmatrix} w_{11} &amp; w_{12}  \end{bmatrix} \begin{bmatrix} 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <video autoplay="" loop="" muted="" playsinline="" poster="https://leemeng.tw/20190921_manim_binary_classification.ipynb">
-<source src="https://leemeng.tw/images/manim/applymatrixassinglelineartransformationandshowaccuracy.mp4" type="video/mp4"/>
+<source src="https://leemeng.tw/images/manim/applymatrixassingleLineartransformationandshowaccuracy.mp4" type="video/mp4"/>
                     您的瀏覽器不支援影片標籤，請留言通知我：S
                 </video>
 <center>
-                        用 1-layer nn 做二元分類（參數隨意設定）
+                        用 1-Layer NN 做二元分類（參數隨意設定）
                         <br/>
 <br/>
 </center>
@@ -841,7 +841,7 @@ f(x) &amp; = \begin{bmatrix} w_{11} &amp; w_{12}  \end{bmatrix} \begin{bmatrix} 
                     您的瀏覽器不支援影片標籤，請留言通知我：S
                 </video>
 <center>
-                        完美分類兩曲線的 1-layer nn
+                        完美分類兩曲線的 1-Layer NN
                         <br/>
 <br/>
 </center>
@@ -926,7 +926,7 @@ W &amp; = \begin{bmatrix} w_{11} &amp; w_{12}  \end{bmatrix} \\
                     您的瀏覽器不支援影片標籤，請留言通知我：S
                 </video>
 <center>
-                        刁難 1-layer nn：讓它處理更難的分類問題
+                        刁難 1-Layer NN：讓它處理更難的分類問題
                         <br/>
 <br/>
 </center>
@@ -947,7 +947,7 @@ W &amp; = \begin{bmatrix} w_{11} &amp; w_{12}  \end{bmatrix} \\
                     您的瀏覽器不支援影片標籤，請留言通知我：S
                 </video>
 <center>
-                        2-layers nn 解決困難雙曲線分類問題的過程
+                        2-Layers NN 解決困難雙曲線分類問題的過程
                         <br/>
 <br/>
 </center>
@@ -1016,7 +1016,7 @@ g(x) &amp; = W_{2}(W_{1} x + b_{1}) + b_{2}
                     您的瀏覽器不支援影片標籤，請留言通知我：S
                 </video>
 <center>
-                        2 &times; 2 矩陣 $w_{1}$ 的運算與全連接層之間的關係
+                        2 &times; 2 矩陣 $W_{1}$ 的運算與全連接層之間的關係
                         <br/>
 <br/>
 </center>
@@ -1038,7 +1038,7 @@ g(x) &amp; = W_{2}(W_{1} x + b_{1}) + b_{2}
                     您的瀏覽器不支援影片標籤，請留言通知我：S
                 </video>
 <center>
-                        線性整流函數 relu 可以讓神經網路對數據做更複雜的轉換
+                        線性整流函數 ReLU 可以讓神經網路對數據做更複雜的轉換
                         <br/>
 <br/>
 </center>
@@ -1063,7 +1063,7 @@ g(x) &amp; = W_{2}(W_{1} x + b_{1}) + b_{2}
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <video autoplay="" loop="" muted="" playsinline="" poster="https://leemeng.tw/20190921_manim_binary_classification.ipynb">
-<source src="https://leemeng.tw/images/manim/TwoLayersReLUInBetweenSolveHardTwoCurves.mp4" type="video/mp4"/>
+<source src="https://leemeng.tw/images/manim/twolayersreluInbetweensolvehardtwocurves.mp4" type="video/mp4"/>
                     您的瀏覽器不支援影片標籤，請留言通知我：S
                 </video>
 <br/>
@@ -1214,6 +1214,10 @@ h(x) &amp; = W_{2} relu(W_{1} x + b_{1}) + b_{2}
 
 
 
+
+
+
+
                 <!-- end Tags -->
 
 
@@ -1243,6 +1247,12 @@ h(x) &amp; = W_{2} relu(W_{1} x + b_{1}) + b_{2}
                 <!--Pagination-->
                 <div id="article-inner-neighbor-pages" class="blog-content__pagenav">
                     <div class="blog-content__nav">
+                        <div class="blog-content__prev">
+                            <a href="https://leemeng.tw/essence-of-principal-component-analysis.html" rel="prev">
+                                <span>Previous Post</span>
+                                世上最生動的 PCA：直觀理解並應用主成分分析
+                            </a>
+                        </div>
                         <div class="blog-content__next">
                             <a href="https://leemeng.tw/gpt2-language-model-generate-chinese-jing-yong-novels.html" rel="next">
                                 <span>Next Post</span>
@@ -1290,7 +1300,33 @@ var disqus_title = '給所有人的深度學習入門：直觀理解神經網路
 
 <!-- footer
 ================================================== -->
-<footer>
+<footer style="background:#0a0809">
+    <div class="row">
+        <div class="col-full">
+
+            <div class="footer-logo">
+                <a class="footer-site-logo" href="#0"><img src="https://leemeng.tw/theme/images/logo.png" alt="Homepage"></a>
+            </div>
+
+            <ul class="footer-social">
+<li><a href="https://github.com/leemengtaiwan" target="_blank">
+    <i class="im im-github" aria-hidden="true"></i>
+    <span>Github</span>
+</a></li>
+<li><a href="https://www.facebook.com/LeeMengTaiwan" target="_blank">
+    <i class="im im-facebook" aria-hidden="true"></i>
+    <span>Facebook</span>
+</a></li>
+<li><a href="https://www.instagram.com/leemengtaiwan/" target="_blank">
+    <i class="im im-instagram" aria-hidden="true"></i>
+    <span>Instagram</span>
+</a></li>
+<li><a href="https://www.linkedin.com/in/leemeng1990/" target="_blank">
+    <i class="im im-linkedin" aria-hidden="true"></i>
+    <span>LinkedIn</span>
+</a></li>            </ul>
+        </div>
+    </div>
     <div class="row footer-bottom">
         <div class="col-twelve">
             <div class="go-top">
@@ -1305,7 +1341,7 @@ var disqus_title = '給所有人的深度學習入門：直觀理解神經網路
     ================================================== -->
     <script src="https://leemeng.tw/theme/js/jquery-3.2.1.min.js"></script>
     <script src="https://leemeng.tw/theme/js/plugins.js"></script>
-    <script src="https://leemeng.tw/theme/js/main.js"></script>
+    <script src="https://leemeng.tw/theme/js/main_raw.js"></script>
     <script type='text/javascript' src='https://leemeng.tw/theme/js/scroll-detect.js'></script>
 
     <!--https://instant.page/-->
@@ -1345,6 +1381,25 @@ var disqus_title = '給所有人的深度學習入門：直觀理解神經網路
       showMailingPopUp();
     });
   });
+</script><!--https://darkmodejs.learn.uno/-->
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.4.0/lib/darkmode-js.min.js"></script>
+<script>
+var options = {
+  bottom: '32px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.2s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
 </script>
 <!--reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_overlay-->
 <script>
@@ -1378,25 +1433,6 @@ function toggleLeftNavImage(elementId) {
     }
 }
 
-</script><!--https://darkmodejs.learn.uno/-->
-<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.4.0/lib/darkmode-js.min.js"></script>
-<script>
-var options = {
-  bottom: '32px', // default: '32px'
-  right: 'unset', // default: '32px'
-  left: '32px', // default: 'unset'
-  time: '0.2s', // default: '0.3s'
-  mixColor: '#fff', // default: '#fff'
-  backgroundColor: '#fff',  // default: '#fff'
-  buttonColorDark: '#100f2c',  // default: '#100f2c'
-  buttonColorLight: '#fff', // default: '#fff'
-  saveInCookies: true, // default: true,
-  label: '🌓', // default: ''
-  autoMatchOsTheme: true // default: true
-}
-
-const darkmode = new Darkmode(options);
-darkmode.showWidget();
 </script>
 
 

@@ -31,16 +31,16 @@
             // force page scroll position to top at page refresh
             // $('html, body').animate({ scrollTop: 0 }, 'normal');
 
-            // will first fade out the loading animation 
+            // will first fade out the loading animation
             $("#loader").fadeOut("slow", function() {
                 // will fade out the whole DIV that covers the website.
                 $("#preloader").delay(300).fadeOut("slow");
-            }); 
-            
-            // for hero content animations 
+            });
+
+            // for hero content animations
             $("html").removeClass('ss-preload');
             $("html").addClass('ss-loaded');
-        
+
         });
     };
 
@@ -49,6 +49,10 @@
      * -------------------------------------------------- */
     var ssPrettyPrint = function() {
         $('pre').addClass('prettyprint');
+        $('table').addClass('table');
+        $('table').addClass('table-striped');
+        $('table').addClass('table-responsive');
+
         $( document ).ready(function() {
             prettyPrint();
         });
@@ -98,7 +102,7 @@
 
 
     /* Mobile Menu
-     * ---------------------------------------------------- */ 
+     * ---------------------------------------------------- */
     var ssMobileMenu = function() {
 
         var toggleButton = $('.header-menu-toggle'),
@@ -122,7 +126,7 @@
 
             if (nav.hasClass('mobile')) {
                 toggleButton.toggleClass('is-clicked');
-                nav.slideToggle(); 
+                nav.slideToggle();
             }
         });
 
@@ -130,7 +134,7 @@
 
 
     /* Masonry
-     * ---------------------------------------------------- */ 
+     * ---------------------------------------------------- */
     var ssMasonryFolio = function () {
 
         var containerBricks = $('.masonry');
@@ -164,7 +168,7 @@
                     $size = $thumbLink.data('size').split('x'),
                     $width  = $size[0],
                     $height = $size[1];
-         
+
                 var item = {
                     src  : $href,
                     w    : $width,
@@ -201,7 +205,7 @@
     /* slick slider
      * ------------------------------------------------------ */
     var ssSlickSlider = function() {
-        
+
         $('.testimonials__slider').slick({
             arrows: true,
             dots: false,
@@ -209,7 +213,7 @@
             slidesToShow: 2,
             slidesToScroll: 1,
             prevArrow: "<div class=\'slick-prev\'><i class=\'im im-arrow-left\' aria-hidden=\'true\'></i></div>",
-            nextArrow: "<div class=\'slick-next\'><i class=\'im im-arrow-right\' aria-hidden=\'true\'></i></div>",       
+            nextArrow: "<div class=\'slick-next\'><i class=\'im im-arrow-right\' aria-hidden=\'true\'></i></div>",
             pauseOnFocus: false,
             autoplaySpeed: 1500,
             responsive: [
@@ -253,7 +257,7 @@
             offset: '25%'
 
         });
-        
+
     };
 
 
@@ -282,7 +286,7 @@
                         });
                     });
 
-                } 
+                }
 
                 // trigger once only
                 this.destroy();
@@ -302,7 +306,7 @@
         $('.smoothscroll').on('click', function (e) {
             var target = this.hash,
             $target    = $(target);
-        
+
             e.preventDefault();
             e.stopPropagation();
 
@@ -319,7 +323,7 @@
     /* Placeholder Plugin Settings
      * ------------------------------------------------------ */
     var ssPlaceholder = function() {
-        $('input, textarea, select').placeholder();  
+        $('input, textarea, select').placeholder();
     };
 
 
@@ -329,62 +333,56 @@
 
         $('.alert-box').on('click', '.alert-box__close', function() {
             $(this).parent().fadeOut(500);
-        }); 
+        });
 
     };
 
 
     /* Contact Form
      * ------------------------------------------------------ */
+    // https://formspree.io/forms/xpzjnzdg/integration
     var ssContactForm = function() {
 
-        /* local validation */
-	    $('#contactForm').validate({
-        
-            /* submit via ajax */
-            submitHandler: function(form) {
-    
-                var sLoader = $('.submit-loader');
-    
-                $.ajax({
-    
-                    type: "POST",
-                    url: "https://formspree.io/b98705001@gmail.com",
-                    data: $(form).serialize(),
-                    beforeSend: function() { 
-    
-                        sLoader.slideDown("slow");
-    
-                    },
-                    success: function(msg) {
-    
-                        // Message was sent
-                        if (msg == 'OK') {
-                            sLoader.slideUp("slow"); 
-                            $('.message-warning').fadeOut();
-                            $('#contactForm').fadeOut();
-                            $('.message-success').fadeIn();
-                        }
-                        // There was an error
-                        else {
-                            sLoader.slideUp("slow"); 
-                            $('.message-warning').html(msg);
-                            $('.message-warning').slideDown("slow");
-                        }
-    
-                    },
-                    error: function() {
-    
-                        sLoader.slideUp("slow"); 
-                        $('.message-warning').html("Something went wrong. Please try again.");
-                        $('.message-warning').slideDown("slow");
-    
-                    }
-    
-                });
+        function ajax(method, url, data, success, error) {
+          var xhr = new XMLHttpRequest();
+          xhr.open(method, url);
+          xhr.setRequestHeader("Accept", "application/json");
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState !== XMLHttpRequest.DONE) return;
+            if (xhr.status === 200) {
+              success(xhr.response, xhr.responseType);
+            } else {
+              error(xhr.status, xhr.response, xhr.responseType);
             }
-    
-        });
+          };
+          xhr.send(data);
+        }
+
+        function success() {
+          form.reset();
+          sLoader.slideUp("slow");
+          $('.message-warning').fadeOut();
+          $('#contactForm').fadeOut();
+          $('.message-success').fadeIn();
+        }
+
+        function error() {
+          sLoader.slideUp("slow");
+          $('.message-warning').html("Oh no！訊息寄送失敗，請查看你的網路連線並再度嘗試。");
+          $('.message-warning').slideDown("slow");
+        }
+
+        var form = document.getElementById("contactForm");
+        var button = document.getElementById("contactFormButton");
+        var sLoader = $('.submit-loader');
+
+        if(typeof form !== 'undefined' && form !== null) {
+            form.addEventListener("submit", function(ev) {
+              ev.preventDefault();
+              var data = new FormData(form);
+              ajax(form.method, form.action, data, success, error);
+            });
+        }
     };
 
 
